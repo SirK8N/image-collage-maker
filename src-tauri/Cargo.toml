@@ -1,0 +1,43 @@
+[package]
+name = "photomosaic-maker"
+version = "1.0.0"
+description = "Photomosaic & Image Collage Studio"
+authors = ["Photomosaic Studio"]
+edition = "2021"
+
+[lib]
+name = "photomosaic_maker_lib"
+crate-type = ["rlib"]
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "webp", "bmp", "tiff"] }
+imagesize = "0.13"
+rayon = "1.10"
+walkdir = "2"
+rand = "0.8"
+base64 = "0.22"
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.dev.package."*"]
+opt-level = 2
+debug = 0
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+
